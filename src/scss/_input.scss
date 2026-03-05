@@ -19,4 +19,13 @@
     margin-block-start: 0.25rem;
     margin-block-end: 0.5rem;
   }
+  .input-field:has(:user-invalid) input {
+    border-color: var(--error);
+  }
+  .input-validation {
+    font-size: 0.875rem;
+    color: var(--error);
+    margin-block-start: 0.25rem;
+    margin-block-end: 0.5rem;
+  }
 }

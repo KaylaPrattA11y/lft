@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Details from "./Details";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -9,12 +9,40 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   helpText?: string | React.ReactNode;
   description?: string;
   ref?: React.Ref<HTMLInputElement>;
+  validationText?: string;
 }
 
-export default function Input({ label, id, addon, helpText, ref, showLabel = true, description, ...rest }: InputProps) {
+export default function Input({ label, id, addon, helpText, ref, showLabel = true, description, validationText, ...rest }: InputProps) {
+  const [isInvalid, setIsInvalid] = useState(false);
+  
   useEffect(() => {
-    
   }, [addon, rest.disabled]);
+
+  // validate field on change and show validation text if invalid
+  function validateField() {
+    const inputElement = document.getElementById(id) as HTMLInputElement;
+    if (inputElement) {
+      const isValid = inputElement.checkValidity();
+      setIsInvalid(!isValid);
+    }
+  }
+
+  // On form reset, clear validation state
+  useEffect(() => {
+    const inputElement = document.getElementById(id) as HTMLInputElement;
+    if (!inputElement) return;
+
+    function handleFormReset() {
+      setIsInvalid(false);
+    }
+
+    const form = inputElement.closest('form');
+    form?.addEventListener('reset', handleFormReset);
+
+    return () => {
+      form?.removeEventListener('reset', handleFormReset);
+    };
+  }, [id]);
 
   return (
     <div className="input">
@@ -27,6 +55,18 @@ export default function Input({ label, id, addon, helpText, ref, showLabel = tru
             {...(showLabel ? {} : { 'aria-label': label })}
             {...rest} 
             ref={ref}
+            onBlur={event => {
+              if (rest.onBlur) {
+                rest.onBlur(event);
+              }
+              validateField();
+            }}
+            onChange={event => {
+              if (rest.onChange) {
+                rest.onChange(event);
+              }
+              validateField();
+            }}
             />
         </div>
         {addon && (
@@ -35,6 +75,7 @@ export default function Input({ label, id, addon, helpText, ref, showLabel = tru
         </div>
         )}
       </div>
+      {isInvalid && validationText && <p className="input-validation">{validationText}</p>}
       {helpText && (
       <Details summary={`${label} help`}>
         <div className="help-text">{helpText}</div>

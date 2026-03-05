@@ -69,6 +69,14 @@
     @container calculator (width >= 700px) {
       grid-template-columns: auto auto;
     }
+    &.is-sticky {
+      position: sticky;
+      bottom: 0;
+      background-color: var(--bg-panel);
+      -webkit-mask: var(--mask-top);
+      padding: 2rem 1rem 0.5rem 1rem;
+      mask: var(--mask-top);
+    }
   }
   .salt-calc-grid {
     display: grid;
@@ -82,16 +90,6 @@
     justify-items: center;
   }
   .jar-result-text {
-    @container calculator (width < 500px) {
-      background-color: var(--bg-panel);
-      -webkit-mask: var(--mask-top);
-      padding: 2rem 0 1rem;
-      mask: var(--mask-top);
-      position: sticky;
-      bottom: 0;
-      inline-size: calc(100% + calc(var(--page-main-padding) * 2));
-      margin-block-end: calc(var(--page-main-padding) * -1);
-    }
     > p {
       padding-inline: var(--page-main-padding);
     }

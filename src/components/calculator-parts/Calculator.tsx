@@ -19,7 +19,7 @@ import type { TabsController } from "../Tabs";
 import { brinePercentagePresets, dateRangePresets } from "./constants";
 import CalculatorJar from "./CalculatorJar";
 
-export default function Calculator({ tabsController }: { tabsController?: TabsController }) {
+export default function Calculator({ tabsController, isSmallScreen }: { tabsController?: TabsController, isSmallScreen: boolean }) {
   const canReceiveNotifications = useContext(NotificationsContext);
   const formRef = useRef<HTMLFormElement|null>(null);
   const [weight, setWeight] = useState<number|null>(null);
@@ -152,8 +152,9 @@ export default function Calculator({ tabsController }: { tabsController?: TabsCo
                   name="weight" 
                   type="number"
                   step="0.01"
-                  min={0}
+                  min={0.01}
                   max={10000}
+                  validationText="Please enter a weight between 0.01 and 10000."
                   value={String(weight || '')}
                   onChange={e => {
                     const raw = e.currentTarget.value;
@@ -198,6 +199,7 @@ export default function Calculator({ tabsController }: { tabsController?: TabsCo
                     id="presetUnit"
                     name="presetUnit" 
                     type="text"
+                    validationText="Please enter a custom unit."
                     onChange={e => setCustomUnit(e.currentTarget.value)}
                     required
                   />
@@ -244,6 +246,7 @@ export default function Calculator({ tabsController }: { tabsController?: TabsCo
               name="brinePercentage" 
               type="number" 
               step="0.1" 
+              validationText="For your safety, please enter a value between 2-10%."
               value={String(brinePercentage || '')}
               onChange={e => {
                 const raw = e.currentTarget.value;
@@ -381,12 +384,20 @@ export default function Calculator({ tabsController }: { tabsController?: TabsCo
             />
             <hr />
           </div>
+          {!isSmallScreen && (
           <div className="calculator-submit">
             <button type="submit" className="is-primary"><HiPlus size={16} /> Add ferment</button>
             <button type="reset" className="is-tertiary">Reset</button>
           </div>
+          )}
         </div>
       </div>
+      {isSmallScreen && (
+      <div className="calculator-submit is-sticky">
+        <button type="submit" className="is-primary"><HiPlus size={16} /> Add ferment</button>
+        <button type="reset" className="is-tertiary">Reset</button>
+      </div>
+      )}
     </form>
   );
 }
