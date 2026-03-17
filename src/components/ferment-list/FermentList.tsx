@@ -66,8 +66,8 @@ export default function FermentList() {
     const width = window.innerWidth;
     if (!width) return;
 
-    if (width >= 1600) {
-      // wide
+    if (width >= 2000) {
+      // extra wide
       setColumnVisibility({
         narrowViewCol: false,
         status: true,
@@ -84,6 +84,24 @@ export default function FermentList() {
         tags: true,
         actions: true,
       });
+    } else if (width >= 1600) {
+      // wide
+      setColumnVisibility({
+        narrowViewCol: false,
+        status: true,
+        dateCreated: true,
+        fermentName: true,
+        brinePercentage: true,
+        weight: true,
+        saltRequired: false,
+        dateStart: true,
+        dateEnd: false,
+        colTotalDuration: true,
+        colRemainingDuration: false,
+        notes: false,
+        tags: true,
+        actions: true,
+      });
     } else if (width >= 1300) {
       // medium
       setColumnVisibility({
@@ -95,7 +113,7 @@ export default function FermentList() {
         weight: false,
         saltRequired: false,
         dateStart: true,
-        dateEnd: true,
+        dateEnd: false,
         colTotalDuration: true,
         colRemainingDuration: false,
         notes: false,
