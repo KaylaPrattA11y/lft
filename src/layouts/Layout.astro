@@ -1,7 +1,11 @@
 ---
+import { AstroSEO } from 'astro-seo-plugin';
 import "../scss/site.scss";
 
 const baseUrl = import.meta.env.BASE_URL;
+const title = "LFT | Lacto-Fermentation Tools";
+const description = "Lacto-Fermentation Tools: instantly calculate the brine, set a timer for ferment duration, and save your ferments to your collection.";
+const keywords = ["lacto-fermentation", "fermentation", "tools", "kitchen", "calculator", "brine", "timer"];
 ---
 
 <!doctype html>
@@ -16,7 +20,40 @@ const baseUrl = import.meta.env.BASE_URL;
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
-		<title>LFT | Lacto-Fermentation Tools</title>
+		<AstroSEO
+      title={title}
+      description={description}
+      openGraph={{
+        title: title,
+        description: description,
+        image: baseUrl + "/og-image.png",
+        type: "website"
+      }}
+      jsonLd={{
+        "@type": "WebPage",
+        name: title,
+        description: description
+      }}
+      robots={{
+        index: true,
+				follow: true,
+				noarchive: false,
+				nosnippet: false,
+				maxSnippet: 150
+      }}
+      additionalLinkTags={[
+        { rel: "canonical", href: "#" },
+        { rel: "prev", href: Astro.url },
+        { rel: "next", href: Astro.url },
+        { rel: "alternate", href: Astro.url }
+      ]}
+      additionalMetaTags={[
+        {
+        name: "keywords",
+        content: keywords.join(", ")
+        }
+      ]}
+    />
 	</head>
 	<body id="root">
 		<slot />

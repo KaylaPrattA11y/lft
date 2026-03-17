@@ -174,7 +174,7 @@ export default function Page({ pageTitle, children }: { pageTitle: string; child
               <ToastContainer theme="dark" autoClose={8000} />
             </main>
             <footer className="site-footer">
-              <small>This little tool was created by Kayla Pratt. <a href="https://github.com/KaylaPrattA11y/lft" target="_blank" rel="noopener noreferrer">View on Github</a></small>
+              <small>This little tool (BETA) was created by Kayla Pratt. <a href="https://github.com/KaylaPrattA11y/lft" target="_blank" rel="noopener noreferrer">View on Github</a></small>
               <InstallPwaPrompt />
             </footer>
           </div>
