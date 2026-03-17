@@ -33,6 +33,7 @@
     }
     &--header,
     &--filters {
+      padding-inline: 1rem;
       justify-content: center;
       @container tabpanel (width >= 500px) {
         justify-content: flex-end;
