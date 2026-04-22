@@ -97,10 +97,10 @@
       margin-block-start: 0.5rem;
       text-align: center;
       > div {
-        display: grid;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        grid-template-columns: max-content max-content max-content;
         gap: 0.25rem;
         > div:not(:last-child)::after {
           content: " | ";
