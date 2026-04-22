@@ -16,7 +16,7 @@ export default function getInitialState(): LftState {
   const initialState: LftState = {
     tableView: window.innerWidth >= 800 ? 'table' : 'grid',
     activeTabpanel: 'calculator',
-    fermentStatusFilter: 'Complete'
+    fermentStatusFilter: 'Active'
   };
   localStorage.setItem('lftState', JSON.stringify(initialState));
   return initialState;
